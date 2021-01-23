@@ -1,0 +1,81 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+public class Account {
+    private String fname;
+    private String lname;
+    private int accNum;
+    private double balance;
+    private List<Transaction> list;
+
+    public Account(String fname, String lname, int accNum) {
+        this.fname = fname;
+        this.lname = lname;
+        this.accNum = accNum;
+        this.balance = 0;
+        list = new ArrayList<>();
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+
+    public boolean makeDeposit(double amnt) {
+        if(amnt > 0) {
+            list.add(new Transaction(amnt));
+            System.out.println("You have deposited $" + amnt + " into your account.");
+            this.balance += amnt;
+            return true;
+        }
+        else{
+            System.out.println("Please enter an amount larger than $0.00");
+            return false;
+        }
+    }
+
+    public boolean makeWithdrawal(double amnt) {
+        if(amnt > 0 && amnt < this.balance) {
+            list.add(new Transaction(-amnt));
+            System.out.println("You have withdrawn $" + amnt + " from your account.");
+            this.balance -= amnt;
+            return true;
+        }
+        else if (amnt > this.balance){
+            System.out.println("Sorry, insufficient funds, cannot withdraw.");
+            return false;
+        }
+        else {
+            System.out.println("Please enter an amount larger than $0.00");
+            return false;
+        }
+    }
+
+    public void transactionHistory() {
+        ListIterator<Transaction> iterator = list.listIterator();
+        while(iterator.hasNext()) {
+            System.out.println(iterator.next().toString());
+        }
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public int getAccNum() {
+        return accNum;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", accNum=" + accNum +
+                '}';
+    }
+}
