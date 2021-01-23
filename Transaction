@@ -1,0 +1,18 @@
+
+
+public class Transaction {
+    private double amount;
+    private static int counter = 0;
+    private int number = 0;
+
+    public Transaction(double amount) {
+        this.amount = amount;
+        this.counter++;
+        this.number = counter;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction no. " + this.number + ", Amount: " + amount;
+    }
+}
